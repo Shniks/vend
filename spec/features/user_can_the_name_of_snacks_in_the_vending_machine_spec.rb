@@ -6,13 +6,18 @@ describe "As a User" do
       owner = Owner.create!(name: "Nikhil")
       vending = owner.machines.create!(location: "Denver")
       snack = Snack.create!(name: "Mars", price: 100)
-      Stock.create!(machine: vending, snack: snack)
+      Machinesnack.create!(machine: vending, snack: snack)
       visit machine_path(vending)
 
       expect(page).to have_content("Mars")
     end
 
     scenario "I see the price of all snacks associated with that vending machine" do
+      owner = Owner.create!(name: "Nikhil")
+      vending = owner.machines.create!(location: "Denver")
+      snack = Snack.create!(name: "Mars", price: 100)
+      Machinesnack.create!(machine: vending, snack: snack)
+      visit machine_path(vending)
       visit machine_path(vending)
 
       expect(page).to have_content("$8.50")
